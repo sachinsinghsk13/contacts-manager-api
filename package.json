@@ -1,0 +1,30 @@
+{
+  "name": "contacts-manager-api",
+  "version": "1.0.0",
+  "description": "Contacts Manager Web Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sachinsinghsk13/contacts-manager-api.git"
+  },
+  "keywords": [
+    "contacts"
+  ],
+  "author": "Sachin Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sachinsinghsk13/contacts-manager-api/issues"
+  },
+  "homepage": "https://github.com/sachinsinghsk13/contacts-manager-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "mysql2": "^2.2.5"
+  }
+}
