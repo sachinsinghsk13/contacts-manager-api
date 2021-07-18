@@ -6,4 +6,4 @@ module.exports.INSERT_VERIFICATION_TOKEN = `INSERT INTO verificationTokens
 module.exports.GET_USER_BY_VERIFICATION_TOKEN = `SELECT userId FROM verificationTokens 
 WHERE token = ?`;
 
-module.exports.ACTIVATE_USER = `UPDATE users SET isActive = TRUE WHERE userId = ?`;
+module.exports.ACTIVATE_USER = `UPDATE users SET isActive = TRUE WHERE id = ?`;

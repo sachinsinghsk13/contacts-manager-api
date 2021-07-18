@@ -37,7 +37,7 @@ class UserRepository {
     }
 
     async getUserByVerificationToken(token) {
-        conn = await this.pool.getConnection();
+        let conn = await this.pool.getConnection();
         let [result, fields] = await conn.query(GET_USER_BY_VERIFICATION_TOKEN, [token]);
         // user is found with given token
         if (result.length > 0) {
