@@ -2,6 +2,8 @@ const pool = require('../configuration/database-pool');
 const { v4: uuidv4 } = require('uuid');
 const { CREATE_NEW_USER, INSERT_VERIFICATION_TOKEN, GET_USER_BY_VERIFICATION_TOKEN, ACTIVATE_USER } = require('../configuration/sql-queries');
 const { CustomerError, CustomMessage } = require('../utils/util-classes');
+const bcrypt = require('bcryptjs');
+
 class UserRepository {
 
     constructor(pool) {
@@ -15,13 +17,15 @@ class UserRepository {
             conn = await this.pool.getConnection();
             // start transaction
             conn.beginTransaction();
-            let [userResult] = await conn.query(CREATE_NEW_USER, [user.fullname, user.email, user.password]);
+            const password = await bcrypt.hash(user.password, bcrypt.genSaltSync());
+            let [userResult] = await conn.query(CREATE_NEW_USER, [user.fullname, user.email, password]);
             let token = uuidv4();
             let userId = userResult.insertId;
             let [tokenResult] = await conn.query(INSERT_VERIFICATION_TOKEN, [userId, token, '2022-01-01']);
             conn.commit();
             return { userId, token };
         } catch (error) {
+            console.log(error);
             if (conn)
                 conn.rollback();
             if (error.errno == 1062)
