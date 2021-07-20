@@ -39,7 +39,7 @@ router.get('/verify-email', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const credentials = req.body;
-        let fetchedUser = await userRepo.getUserByEmail(credentials.username);
+        let fetchedUser = await userRepo.getUserPasswordByEmail(credentials.username);
         if (fetchedUser.length > 0) {
             if (bcrypt.compareSync(credentials.password, fetchedUser[0].password)) {
                 let payload = await userRepo.getUserDetailsByEmail(credentials.username);

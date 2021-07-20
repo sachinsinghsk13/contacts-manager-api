@@ -5,11 +5,9 @@ const { CustomerError, CustomMessage } = require('../utils/util-classes');
 const bcrypt = require('bcryptjs');
 
 class UserRepository {
-
     constructor(pool) {
         this.pool = pool;
     }
-
     async registerUser(user) {
         let conn;
         try {
@@ -54,16 +52,16 @@ class UserRepository {
         }
     }
 
-    async getUserByEmail(email) {
+    async getUserPasswordByEmail(email) {
         const conn = await this.pool.getConnection();
-        let [result, fields] = await conn.query(sql.GET_USER_BY_EMAIL, [email]);
+        let [result, fields] = await conn.query(sql.GET_USER_PASSWORD_BY_EMAIL, [email]);
         return result;
     }
 
     async getUserDetailsByEmail(email) {
         const conn = await this.pool.getConnection();
         let [result, fields] = await conn.query(sql.GET_USER_DETAILS_BY_EMAIL, [email]);
-        return result;
+        return result[0];
     }
 }
 module.exports = new UserRepository(pool);
